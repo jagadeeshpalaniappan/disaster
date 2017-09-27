@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Disaster Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color:#ADD8E6">
+<div class="container">          
+  <div class="row">
+  	<div class="col-xs-6">
+  	<h2>Sender Details</h2>	
+  	<form>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="pno">Phone number:</label>
+      <input type="number" class="form-control" id="pno" placeholder="Enter Phone number" name="pno">
+    </div>
+    </form>
+  	</div>
+  	<div class="col-xs-6">
+  	<h2>Disaster Details</h2>
+  	<form>
+  	<div class="form-group">
+  		<label for="disaster">Disaster Type:</label>
+  		<input type="text" class="form-control" id="disaster" placeholder="Enter Disaster" name="disaster">
+  	</div>
+    <div class="form-group">
+      <label for="district">District:</label>
+      <input type="text" class="form-control" id="district" list="district-list" placeholder="Enter District" name="district">
+      <datalist id="district-list"></datalist>
+      <script type="text/javascript" src="js/district.js"></script>
+    </div>
+    <div class="form-group">
+      <label for="taluk">Taluk:</label>
+      <input type="text" class="form-control" id="taluk" list="taluk-list" placeholder="Enter Taluk" name="taluk">
+      <datalist id="taluk-list"></datalist>
+    </div>
+    <div class="form-group">
+      <label for="village">Village:</label>
+      <input type="text" class="form-control" id="village" id="village-list" placeholder="Enter Village" name="village">
+      <datalist id="village-list"></datalist>
+    </div>
+    </form>
+  	</div>
+  </div>
+</div>
+<div class="container">
+	<button style="display:block;margin:auto;" type="submit" class="btn btn-info">Submit</button>
+</div>
+</body>
+</html>
