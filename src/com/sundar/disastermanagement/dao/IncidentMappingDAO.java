@@ -8,36 +8,33 @@ import java.util.List;
 
 import com.sundar.disastermanagement.util.DBUtil;
 import com.sundar.disastermanagement.vo.IncidentInchargeVO;
+import com.sundar.disastermanagement.vo.IncidentVO;
 
 public class IncidentMappingDAO {
 	
 	
 	
-	public List<IncidentInchargeVO> getIncidentInchargeById(int locationID) {
+	public List<IncidentInchargeVO> getIncidentInchargeById(IncidentVO incidentVO) {
 		// TODO Auto-generated method stub
-		IncidentInchargeVO inchargeVO=new IncidentInchargeVO();
 		List<IncidentInchargeVO> list=new ArrayList<IncidentInchargeVO>();
 		try{
 			DBUtil dbUtil=DBUtil.getDBUtil();
 			Connection c=dbUtil.getConnection();
 			String sql="SELECT * FROM INCIDENT_INCHARGE WHERE INCHARGE_ID IN "
-					+ "(SELECT INCHARGE_ID FROM INCIDENT_MAPPING WHERE LOCATION_ID=?)";
+					+ "(SELECT INCHARGE_ID FROM INCIDENT_MAPPING WHERE "
+					+ "INCIDENT_TYPE_ID=? AND LOCATION_ID=?)";
 			PreparedStatement ps=c.prepareStatement(sql);
-			ps.setInt(1,locationID);
+			ps.setInt(1,incidentVO.getIncidentType().getIncidentTypeID());
+			ps.setInt(2, incidentVO.getLocation().getLocationID());
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
+				IncidentInchargeVO inchargeVO=new IncidentInchargeVO();
 				inchargeVO.setInchargeID(rs.getInt("INCHARGE_ID"));
 				inchargeVO.setName(rs.getString("NAME"));
 				inchargeVO.setMobile(rs.getString("MOBILE"));
-				inchargeVO.setEmail(rs.getString("EMAIL"));
-				inchargeVO.setDesignation(rs.getString("DESIGNATION"));
 				list.add(inchargeVO);
-				System.out.println(inchargeVO.getInchargeID()+inchargeVO.getName());
-			}
-			for(IncidentInchargeVO inchargeVO1:list)
-			{
-				System.out.println(inchargeVO1.getEmail()+inchargeVO1.getName());
+				System.out.println(inchargeVO.getMobile()+"   "+inchargeVO.getName());
 			}
 			rs.close();
 			ps.close();

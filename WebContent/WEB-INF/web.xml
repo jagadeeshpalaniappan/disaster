@@ -18,16 +18,16 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>GetInchargeByIdServlet</display-name>
-		<servlet-name>GetInchargeByIdServlet</servlet-name>
-		<servlet-class>com.sundar.disastermanagement.servlet.GetInchargeByIdServlet</servlet-class>
+		<display-name>ViewIncidentServlet</display-name>
+		<servlet-name>ViewIncidentServlet</servlet-name>
+		<servlet-class>com.sundar.disastermanagement.servlet.ViewIncidentServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CreateIncidentServlet</servlet-name>
 		<url-pattern>/createIncident</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>GetInchargeByIdServlet</servlet-name>
-		<url-pattern>/GetInchargeByIdServlet</url-pattern>
+		<servlet-name>ViewIncidentServlet</servlet-name>
+		<url-pattern>/viewIncident</url-pattern>
 	</servlet-mapping>
 </web-app>

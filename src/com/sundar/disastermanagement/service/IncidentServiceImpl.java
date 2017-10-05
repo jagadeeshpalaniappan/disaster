@@ -2,6 +2,7 @@ package com.sundar.disastermanagement.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.sundar.disastermanagement.dao.IncidentDAOImpl;
 import com.sundar.disastermanagement.dao.IncidentMappingDAO;
@@ -21,28 +22,36 @@ public class IncidentServiceImpl implements IncidentServiceInf{
 
 	public  StatusVO createIncident(IncidentVO incidentVO)
 	{
-		int locationId=incidentVO.getLocation().getLocationID();
-		String description=incidentVO.getDescription();
+		StatusVO statusVO = new StatusVO();
 		IncidentDAOImpl incidentDAO=IncidentDAOImpl.getIncidentDAO();
-		StatusVO statusVO=incidentDAO.createIncident(incidentVO);
+		incidentVO=(incidentDAO.createIncident(incidentVO));
+		if(incidentVO.getUserId()!=-1)
+		{
+		statusVO.setUserId(incidentVO.getUserId());
 		IncidentMappingDAO dao=new IncidentMappingDAO();
 		List<IncidentInchargeVO> list=new ArrayList<IncidentInchargeVO>();
-		list=dao.getIncidentInchargeById(locationId);
+		list=dao.getIncidentInchargeById(incidentVO);
+		
 		MailService mailService=new MailService();
-		for(IncidentInchargeVO inchargeVO:list)
-		{
-			System.out.println(inchargeVO.getEmail()+inchargeVO.getName()+list);
-		mailService.send(inchargeVO.getEmail(),"Flood" ,description);
-		}
+		MessageService messageService=new MessageService();
+		messageService.sendMsg(list,incidentVO);
+		mailService.send(incidentVO);
+		statusVO.setStatusCode("Success");
+		statusVO.setStatusMsg("your incident is reported successfully");
 		return statusVO;
+		}
+		else{
+			statusVO.setStatusCode("Problem");
+			statusVO.setStatusMsg("your incident is not reported");
+			return statusVO;
+		}
 	}
 	
 	
-	public IncidentVO getIncidentById(int userId) {
+	public Map<String,Object> getIncidentById(int userId) {
 		// TODO Auto-generated method stub
 		IncidentDAOImpl incidentDAO=IncidentDAOImpl.getIncidentDAO();
-		IncidentVO incidentVO=new IncidentVO();
-		incidentVO=incidentDAO.getIncidentById(userId);
-		return incidentVO;
+		Map<String,Object> map=incidentDAO.getIncidentById(userId);
+		return map;
 	}
 }

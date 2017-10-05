@@ -3,6 +3,7 @@ package com.sundar.disastermanagement.vo;
 public class StatusVO {
 	private String statusCode;
 	private String statusMsg;
+	private int userId;
 	
 	public String getStatusCode() {
 		return statusCode;
@@ -15,5 +16,11 @@ public class StatusVO {
 	}
 	public void setStatusMsg(String statusMsg) {
 		this.statusMsg = statusMsg;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }

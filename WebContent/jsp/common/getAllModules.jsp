@@ -14,9 +14,8 @@
 			<a href='#' class="list-group-item" onclick="getCreateIncidentPage();">
 				Incident a report </a> 
 				
-			<a href='#' class="list-group-item"
-				onclick="alert('Coming Soon');"> View Incident Details <span
-				class="badge">Coming Soon</span></a> 
+			<a href='#' class="list-group-item" onclick="getViewIncidentPage();"> 
+			View Incident Details </a> 
 			
 		</div>
 

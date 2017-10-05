@@ -1,10 +1,11 @@
 package com.sundar.disastermanagement.dao;
 
 
+import java.util.Map;
+
 import com.sundar.disastermanagement.vo.IncidentVO;
-import com.sundar.disastermanagement.vo.StatusVO;
 
 public interface IncidentDAOInf {
-	public  StatusVO createIncident(IncidentVO incident);
-	public  IncidentVO getIncidentById(int userID);
+	public  IncidentVO createIncident(IncidentVO incident);
+	public  Map<String,Object> getIncidentById(int userID);
 }

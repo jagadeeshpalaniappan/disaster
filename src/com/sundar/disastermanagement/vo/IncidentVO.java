@@ -1,23 +1,20 @@
 package com.sundar.disastermanagement.vo;
 
+import java.util.Date;
 
 public class IncidentVO 
 	{
 	private int userId;
 	private String name;
-	private String email;
 	private String mobile;
 	private String description;
 	private IncidentTypeVO incidentType;
 	private LocationVO location;
-	private String Status;
+	private boolean msgStatus;
+	private boolean mailStatus;
+	private Date date=new Date();
 	private boolean f=false;
-	public String getStatus() {
-		return Status;
-	}
-	public void setStatus(String status) {
-		Status = status;
-	}
+	
 	public boolean isF() {
 		return f;
 	}
@@ -35,12 +32,6 @@ public class IncidentVO
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getMobile() {
 		return mobile;
@@ -66,4 +57,23 @@ public class IncidentVO
 	public void setLocation(LocationVO location) {
 		this.location = location;
 	}
+	public boolean isMsgStatus() {
+		return msgStatus;
+	}
+	public void setMsgStatus(boolean msgStatus) {
+		this.msgStatus = msgStatus;
+	}
+	public boolean isMailStatus() {
+		return mailStatus;
+	}
+	public void setMailStatus(boolean mailStatus) {
+		this.mailStatus = mailStatus;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 }

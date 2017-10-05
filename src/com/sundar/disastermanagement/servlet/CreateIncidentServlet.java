@@ -1,6 +1,7 @@
 package com.sundar.disastermanagement.servlet;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -50,8 +51,8 @@ public class CreateIncidentServlet extends HttpServlet {
 		IncidentVO incidentVO=new IncidentVO();
 		LocationVO locationVO =new LocationVO();
 		IncidentTypeVO incidentTypeVO=new IncidentTypeVO();
+		incidentVO.setUserId(-1);
 		incidentVO.setName(request.getParameter("name"));
-		incidentVO.setEmail(request.getParameter("email"));
 		incidentVO.setMobile(request.getParameter("mobile"));
 		incidentVO.setDescription(request.getParameter("description"));
 		int locationId=Integer.parseInt(request.getParameter("village"));
@@ -59,13 +60,15 @@ public class CreateIncidentServlet extends HttpServlet {
 		incidentVO.setLocation(locationVO);
 		incidentTypeVO.setIncidentTypeID(Integer.parseInt(request.getParameter("incidentType")));
 		incidentVO.setIncidentType(incidentTypeVO);
+		incidentVO.setDate(Calendar.getInstance().getTime());
 		IncidentServiceImpl s=IncidentServiceImpl.getIncidentService();
 		StatusVO statusVO=s.createIncident(incidentVO);
-		response.sendRedirect("./index.jsp");
-		/*ServletContext context= getServletContext();
-		RequestDispatcher rd= context.getRequestDispatcher("jsp/common/status.jsp");
+		//System.out.println(incidentVO.getDate());
+		request.setAttribute("status", statusVO);
+		ServletContext context= getServletContext();
+		RequestDispatcher rd= context.getRequestDispatcher("/jsp/incident/confrim.jsp");
 		rd.forward(request, response);
-		System.out.println("hi da shiva");*/
+		System.out.println("hi da shiva");
 	}
 }
 
