@@ -2,38 +2,38 @@ package com.sundar.disastermanagement.vo;
 
 public class LocationVO {
 	private int locationID;
-	private String village;
-	private String taluk;
-	private String district;
-	private String state;
+	private String villageName;
+	private String villageTamilName;
+	private int talukId;
+	private int districtId;
 	public int getLocationID() {
 		return locationID;
 	}
 	public void setLocationID(int locationID) {
 		this.locationID = locationID;
 	}
-	public String getVillage() {
-		return village;
+	public String getVillageName() {
+		return villageName;
 	}
-	public void setVillage(String village) {
-		this.village = village;
+	public void setVillageName(String villageName) {
+		this.villageName = villageName;
 	}
-	public String getTaluk() {
-		return taluk;
+	public String getVillageTamilName() {
+		return villageTamilName;
 	}
-	public void setTaluk(String taluk) {
-		this.taluk = taluk;
+	public void setVillageTamilName(String villageTamilName) {
+		this.villageTamilName = villageTamilName;
 	}
-	public String getDistrict() {
-		return district;
+	public int getTalukId() {
+		return talukId;
 	}
-	public void setDistrict(String district) {
-		this.district = district;
+	public void setTalukId(int talukId) {
+		this.talukId = talukId;
 	}
-	public String getState() {
-		return state;
+	public int getDistrictId() {
+		return districtId;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setDistrictId(int districtId) {
+		this.districtId = districtId;
 	}
 }

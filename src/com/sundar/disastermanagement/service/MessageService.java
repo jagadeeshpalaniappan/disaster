@@ -31,7 +31,8 @@ public class MessageService{
             String senderId = "FloodC";
             //Your message to send, Add URL encoding here.
             String message = "Reported by "+incidentVO.getName()+"\t"+incidentVO.getMobile()+
-        			"\n"+incidentVO.getDescription();
+        			"\n"+incidentVO.getDescription()+"\nID:"+incidentVO.getUserId()+
+        			"\n"+incidentVO.getDate();
             //define route
             String route="4";
 

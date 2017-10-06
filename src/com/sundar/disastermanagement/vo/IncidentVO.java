@@ -4,14 +4,15 @@ import java.util.Date;
 
 public class IncidentVO 
 	{
-	private int userId;
+	private long userId;
 	private String name;
 	private String mobile;
 	private String description;
 	private IncidentTypeVO incidentType;
 	private LocationVO location;
+	private String taluk;
+	private String action;
 	private boolean msgStatus;
-	private boolean mailStatus;
 	private Date date=new Date();
 	private boolean f=false;
 	
@@ -21,10 +22,10 @@ public class IncidentVO
 	public void setF(boolean f) {
 		this.f = f;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public String getName() {
@@ -63,17 +64,22 @@ public class IncidentVO
 	public void setMsgStatus(boolean msgStatus) {
 		this.msgStatus = msgStatus;
 	}
-	public boolean isMailStatus() {
-		return mailStatus;
-	}
-	public void setMailStatus(boolean mailStatus) {
-		this.mailStatus = mailStatus;
-	}
 	public Date getDate() {
 		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
+	}
+	public String getTaluk() {
+		return taluk;
+	}
+	public void setTaluk(String taluk) {
+		this.taluk = taluk;
+	}
 }

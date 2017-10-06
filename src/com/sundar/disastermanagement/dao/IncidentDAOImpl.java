@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.sundar.disastermanagement.util.DBUtil;
@@ -28,22 +30,22 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 		DBUtil dbUtil;
 		Connection c;
 		ResultSet rs;
+		int id = 0;
 		try{
 			dbUtil=DBUtil.getDBUtil();
 			c=dbUtil.getConnection();
 			
 			PreparedStatement ps=c.prepareStatement("INSERT INTO INCIDENT"
-					+ "(NAME,MOBILE,DESCRIPTION,INCIDENT_TYPE_ID,LOCATION_ID,MESSAGE_STATUS,MAIL_STATUS,TIME)"
-					+ " VALUES(?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					+ "(NAME,MOBILE,DESCRIPTION,INCIDENT_TYPE_ID,LOCATION_ID,MESSAGE_STATUS,TIME)"
+					+ " VALUES(?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, incident.getName());
 			ps.setString(2, incident.getMobile());
 			ps.setString(3, incident.getDescription());
 			ps.setInt(4, incident.getIncidentType().getIncidentTypeID());
 			ps.setInt(5, incident.getLocation().getLocationID());
 			ps.setBoolean(6, false);
-			ps.setBoolean(7, false);
 			Timestamp time=new Timestamp(incident.getDate().getTime());
-			ps.setTimestamp(8,time );
+			ps.setTimestamp(7,time );
 			int n=ps.executeUpdate();
 			if(n==0)
 				System.out.println("record is not inserted");
@@ -53,16 +55,27 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 				
 
 			    rs = ps.getGeneratedKeys();
+			    
 			    if (rs.next()) {
-			    	incident.setUserId(rs.getInt(1));
+			    	id=rs.getInt(1);
 			    } else {
 			    	System.out.println("its not worked");
 			    	return incident;
 			    }
 			    rs.close();
 			    System.out.println("Key returned from getGeneratedKeys():"
-			        + incident.getUserId());
+			        + id);
 				}
+			String refId=21+incident.getTaluk()+incident.getLocation().getLocationID()+id;
+			long referenceId=Long.parseLong(refId);
+			PreparedStatement ps1=c.prepareStatement("UPDATE INCIDENT "
+					+ " SET ID=? "
+					+ " WHERE ID=?");
+			ps1.setLong(1,referenceId);
+			ps1.setInt(2,id);
+			ps1.executeUpdate();
+			incident.setUserId(referenceId);
+			ps1.close();
 			ps.close();
 			c.close();
 			return incident;
@@ -79,16 +92,17 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 		IncidentVO incidentVO=new IncidentVO();
 		LocationVO locationVO=new LocationVO();
 		IncidentTypeVO incidentTypeVO=new IncidentTypeVO();
+		incidentVO.setF(false);
 		try{
 			DBUtil dbUtil=DBUtil.getDBUtil();
 			Connection c=dbUtil.getConnection();
-			String sql="SELECT * FROM Incident WHERE USER_ID=?";
+			String sql="SELECT * FROM Incident WHERE ID=?";
 			PreparedStatement ps=c.prepareStatement(sql);
 			ps.setInt(1,userID);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				incidentVO.setUserId(rs.getInt("USER_ID"));
+				incidentVO.setUserId(rs.getInt("ID"));
 				incidentVO.setName(rs.getString("NAME"));
 				incidentVO.setMobile(rs.getString("MOBILE"));
 				incidentVO.setDescription(rs.getString("DESCRIPTION"));
@@ -97,12 +111,21 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 				locationVO.setLocationID(rs.getInt("LOCATION_ID"));
 				incidentVO.setLocation(locationVO);
 				incidentVO.setDate(rs.getTimestamp("TIME"));
-				incidentVO.setMailStatus(rs.getBoolean("MAIL_STATUS"));
 				incidentVO.setMsgStatus(rs.getBoolean("MESSAGE_STATUS"));
+				incidentVO.setAction(rs.getString("ACTION"));
 				incidentVO.setF(true);
 			}
-			statusVO.setStatusCode("*");
-			statusVO.setStatusMsg("");
+			if(incidentVO.isF())
+			{
+				statusVO.setStatusCode("*");
+				statusVO.setStatusMsg("");
+			}
+			else
+			{
+				statusVO.setStatusCode("Invalid");
+				statusVO.setStatusMsg("Given id is the Invalid reference number");
+			}
+			
 			map.put("incident", incidentVO);
 			map.put("statusVO", statusVO);
 			rs.close();
@@ -110,12 +133,36 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 			c.close();
 			return map;
 		}catch (Exception e){
+			
 		statusVO.setStatusCode("Problem");
 		statusVO.setStatusMsg("connection not found");
-		map.put("StatusVO", statusVO);
+		map.put("incident", incidentVO);
+		map.put("statusVO", statusVO);
 		return map;
 		}
 		
+	}
+	public List<LocationVO> getVillagesByTalukId(int talukId) {
+		List<LocationVO> list=new ArrayList<LocationVO>();
+		try{
+			DBUtil dbUtil=DBUtil.getDBUtil();
+			Connection c=dbUtil.getConnection();
+			String sql="SELECT village_code,village_tname,village_name FROM LOCATION WHERE taluk_code=?";
+			PreparedStatement ps=c.prepareStatement(sql);
+			ps.setInt(1,talukId);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				LocationVO locationVO=new LocationVO();
+				locationVO.setLocationID(rs.getInt("village_code"));
+				locationVO.setVillageName(rs.getString("village_name"));
+				locationVO.setVillageTamilName(rs.getString("village_tname"));
+				list.add(locationVO);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
 	}
 	
 }

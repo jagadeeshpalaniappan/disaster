@@ -8,6 +8,7 @@ import com.sundar.disastermanagement.dao.IncidentDAOImpl;
 import com.sundar.disastermanagement.dao.IncidentMappingDAO;
 import com.sundar.disastermanagement.vo.IncidentInchargeVO;
 import com.sundar.disastermanagement.vo.IncidentVO;
+import com.sundar.disastermanagement.vo.LocationVO;
 import com.sundar.disastermanagement.vo.StatusVO;
 
 public class IncidentServiceImpl implements IncidentServiceInf{
@@ -53,5 +54,11 @@ public class IncidentServiceImpl implements IncidentServiceInf{
 		IncidentDAOImpl incidentDAO=IncidentDAOImpl.getIncidentDAO();
 		Map<String,Object> map=incidentDAO.getIncidentById(userId);
 		return map;
+	}
+	public  List<LocationVO> getVillagesByTalukId(int talukID)
+	{
+		IncidentDAOImpl incidentDAO=IncidentDAOImpl.getIncidentDAO();
+		List<LocationVO> list=incidentDAO.getVillagesByTalukId(talukID);
+		return list;
 	}
 }

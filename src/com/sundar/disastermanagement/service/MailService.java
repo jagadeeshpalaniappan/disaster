@@ -11,7 +11,8 @@ public class MailService {
     	String mailID="sundarbtechict@gmail.com";
     	String sub="Flood";
     	String msg="Reported by "+incidentVO.getName()+"\t"+incidentVO.getMobile()+
-    			"\n"+incidentVO.getDescription();
+    			"\n"+incidentVO.getDescription()+"\nID:"+incidentVO.getUserId()+
+    			"\n"+incidentVO.getDate();
     	
         Properties props = new Properties();    
         props.put("mail.smtp.host", "smtp.gmail.com");    

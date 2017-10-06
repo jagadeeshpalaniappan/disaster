@@ -43,16 +43,17 @@ public class ViewIncidentServlet extends HttpServlet {
 				System.out.println(userId);
 					IncidentServiceImpl impl=IncidentServiceImpl.getIncidentService();
 					Map<String, Object> map = impl.getIncidentById(userId);
-					IncidentVO incidentVO=(IncidentVO) map.get("incident");
+					IncidentVO incidentVO=new IncidentVO();
+					incidentVO=(IncidentVO) map.get("incident");
 					StatusVO statusVO=(StatusVO) map.get("statusVO");
-								if (incidentVO.isF()) {
+					if (incidentVO.isF()) {
 						request.setAttribute("incident", incidentVO);
 						request.setAttribute("status", statusVO);
-						System.out.println(" hi");
 					}
+					else
+						request.setAttribute("status", statusVO);
 				ServletContext context = getServletContext();
 				RequestDispatcher rd = context.getRequestDispatcher("/jsp/incident/viewIncident.jsp");
-				System.out.println(" hi da saran");
 				rd.forward(request, response);
 
 	}	

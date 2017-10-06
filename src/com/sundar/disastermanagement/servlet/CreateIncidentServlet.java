@@ -56,6 +56,7 @@ public class CreateIncidentServlet extends HttpServlet {
 		incidentVO.setMobile(request.getParameter("mobile"));
 		incidentVO.setDescription(request.getParameter("description"));
 		int locationId=Integer.parseInt(request.getParameter("village"));
+		incidentVO.setTaluk(request.getParameter("taluk"));
 		locationVO.setLocationID(locationId);
 		incidentVO.setLocation(locationVO);
 		incidentTypeVO.setIncidentTypeID(Integer.parseInt(request.getParameter("incidentType")));

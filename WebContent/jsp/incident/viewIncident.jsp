@@ -3,12 +3,14 @@
 <div id="viewIncident">
 
 
-	<a href='#' onclick="getAllModules();"> &lt Back</a> <br />
+	<a href='#' onclick="getViewIncidentPage();"> &lt Back</a> <br />
 	<br />
+	<a href='#' onclick="getAllModules();"> &lt Home</a> <br />
 
 	<div class="panel panel-default">
 		<div class="panel-heading">Incident details</div>
 		<div class="panel-body">
+		<c:if test="${status.statusCode == '*'}">
 
 			<table class="table table-striped">
 				<tr>
@@ -29,14 +31,37 @@
 				</tr>
 				<tr>
 					<th>Message Notification:</th>
-					<td></td>
+					<td><c:out value="${incident.msgStatus}" /></td>
 				</tr>
 				<tr>
 					<th>Action:</th>
-					<td></td>
+					<td><c:out value="${incident.action}" /></td>
 				</tr>
 			</table>
 		</div>
 	</div>
-
+	</c:if>
+	<c:if test="${status.statusCode =='Problem'}">
+			<div class="alert alert-warning"
+				style="text-align: center;">
+				<strong><c:out value="${status.statusCode}" /></strong>
+				<p>
+					<c:out value="${status.statusMsg}" />
+				</p>
+				<a href='#' onclick="getViewIncidentPage();">
+				Try again</a> 
+			</div>
+	</c:if>
+	<c:if test="${status.statusCode == 'Invalid'}">
+			<div class="alert alert-warning"
+				style="text-align: center;">
+				<strong><c:out value="${status.statusCode}" /></strong>
+				<p>
+					<c:out value="${status.statusMsg}" />
+				</p>
+				<a href='#' onclick="getViewIncidentPage();">
+				Try again</a> 
+			</div>
+	</c:if>
+	
 </div>

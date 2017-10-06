@@ -3,7 +3,7 @@ package com.sundar.disastermanagement.vo;
 public class StatusVO {
 	private String statusCode;
 	private String statusMsg;
-	private int userId;
+	private long userId;
 	
 	public String getStatusCode() {
 		return statusCode;
@@ -17,10 +17,12 @@ public class StatusVO {
 	public void setStatusMsg(String statusMsg) {
 		this.statusMsg = statusMsg;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+		// TODO Auto-generated method stub
+		
 }
