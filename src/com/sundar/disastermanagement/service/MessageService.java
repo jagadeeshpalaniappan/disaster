@@ -6,6 +6,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
+import com.sundar.disastermanagement.dao.IncidentDAOImpl;
 import com.sundar.disastermanagement.vo.IncidentInchargeVO;
 import com.sundar.disastermanagement.vo.IncidentVO;
 
@@ -15,7 +16,7 @@ public class MessageService{
         public void sendMsg(List<IncidentInchargeVO> list,IncidentVO incidentVO)
     	{
             //Your authentication key
-            String authkey = "176781A3t1x0lS59d12dc4";
+            String authkey = "178249Aqg27G7cV1u59d87c0c";
             //Multiple mobiles numbers separated by comma
             String mobiles = "";
             int i=1;
@@ -31,7 +32,7 @@ public class MessageService{
             String senderId = "FloodC";
             //Your message to send, Add URL encoding here.
             String message = "Reported by "+incidentVO.getName()+"\t"+incidentVO.getMobile()+
-        			"\n"+incidentVO.getDescription()+"\nID:"+incidentVO.getUserId()+
+        			"\n"+incidentVO.getDescription()+"\nID:"+incidentVO.getReferenceId()+
         			"\n"+incidentVO.getDate();
             //define route
             String route="4";
@@ -69,8 +70,11 @@ public class MessageService{
                 String response;
                 while ((response = reader.readLine()) != null)
                 //print response
-                System.out.println(response+"\n email sent successfully");
-
+                	System.out.println(response+"\t msg sent successfully");
+                IncidentDAOImpl incidentDAO=IncidentDAOImpl.getIncidentDAO();
+                incidentDAO.updateMessageStatus(incidentVO.getUserId());
+                
+                
                 //finally close connection
                 reader.close();
             }

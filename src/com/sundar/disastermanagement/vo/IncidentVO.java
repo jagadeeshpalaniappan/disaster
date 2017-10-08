@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class IncidentVO 
 	{
-	private long userId;
+	private int userId;
+	private long referenceId;
 	private String name;
 	private String mobile;
 	private String description;
@@ -22,11 +23,17 @@ public class IncidentVO
 	public void setF(boolean f) {
 		this.f = f;
 	}
-	public long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public long getReferenceId() {
+		return referenceId;
+	}
+	public void setReferenceId(long referenceId) {
+		this.referenceId = referenceId;
 	}
 	public String getName() {
 		return name;

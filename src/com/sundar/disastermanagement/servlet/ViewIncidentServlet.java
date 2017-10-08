@@ -39,7 +39,7 @@ public class ViewIncidentServlet extends HttpServlet {
 	{
 		// TODO Auto-generated method stub
 				System.out.println("sundar");
-				int userId=Integer.parseInt(request.getParameter("userId"));
+				long userId=Long.parseLong(request.getParameter("userId"));
 				System.out.println(userId);
 					IncidentServiceImpl impl=IncidentServiceImpl.getIncidentService();
 					Map<String, Object> map = impl.getIncidentById(userId);

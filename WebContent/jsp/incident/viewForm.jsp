@@ -2,8 +2,8 @@
 <div id="getviewForm">
 
 	<a href='#' onclick="getAllModules();"> &lt Back</a> <br /> <br />
-
-	<div class="col-md-4 col-md-offset-4 panel panel-default">
+<div class="col-md-4 col-md-offset-4">
+	<div class="panel panel-default">
 		<div class="panel-heading">Enter your reference id:</div>
 		<div class="panel-body">
 
@@ -26,7 +26,7 @@
 					</div>
 			</form>
 
-
+			</div>
 		</div>
 	</div>
 </div>

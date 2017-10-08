@@ -28,7 +28,7 @@ public class IncidentServiceImpl implements IncidentServiceInf{
 		incidentVO=(incidentDAO.createIncident(incidentVO));
 		if(incidentVO.getUserId()!=-1)
 		{
-		statusVO.setUserId(incidentVO.getUserId());
+		statusVO.setUserId(incidentVO.getReferenceId());
 		IncidentMappingDAO dao=new IncidentMappingDAO();
 		List<IncidentInchargeVO> list=new ArrayList<IncidentInchargeVO>();
 		list=dao.getIncidentInchargeById(incidentVO);
@@ -49,7 +49,7 @@ public class IncidentServiceImpl implements IncidentServiceInf{
 	}
 	
 	
-	public Map<String,Object> getIncidentById(int userId) {
+	public Map<String,Object> getIncidentById(long userId) {
 		// TODO Auto-generated method stub
 		IncidentDAOImpl incidentDAO=IncidentDAOImpl.getIncidentDAO();
 		Map<String,Object> map=incidentDAO.getIncidentById(userId);

@@ -69,12 +69,13 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 			String refId=21+incident.getTaluk()+incident.getLocation().getLocationID()+id;
 			long referenceId=Long.parseLong(refId);
 			PreparedStatement ps1=c.prepareStatement("UPDATE INCIDENT "
-					+ " SET ID=? "
+					+ " SET REFERENCE_NO=? "
 					+ " WHERE ID=?");
 			ps1.setLong(1,referenceId);
 			ps1.setInt(2,id);
 			ps1.executeUpdate();
-			incident.setUserId(referenceId);
+			incident.setUserId(id);
+			incident.setReferenceId(referenceId);
 			ps1.close();
 			ps.close();
 			c.close();
@@ -84,8 +85,28 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 			return incident;
 		}	
 	}
+	public void updateMessageStatus(int userID)
+	{
+		DBUtil dbUtil;
+		Connection c;
+		try{
+			dbUtil=DBUtil.getDBUtil();
+			c=dbUtil.getConnection();
+			
+			PreparedStatement ps=c.prepareStatement("UPDATE INCIDENT " + 
+					" SET MESSAGE_STATUS=? " + 
+					" WHERE ID=? ");
+			ps.setBoolean(1,true);
+			ps.setInt(2,userID);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+		}catch (Exception e){
+			System.out.println(e);
+		}
+	}
 
-	public Map<String,Object> getIncidentById(int userID) {
+	public Map<String,Object> getIncidentById(long userID) {
 		// TODO Auto-generated method stub
 		Map<String,Object>map =new HashMap<String,Object>();
 		StatusVO statusVO=new StatusVO();
@@ -96,9 +117,9 @@ public class IncidentDAOImpl implements IncidentDAOInf{
 		try{
 			DBUtil dbUtil=DBUtil.getDBUtil();
 			Connection c=dbUtil.getConnection();
-			String sql="SELECT * FROM Incident WHERE ID=?";
+			String sql="SELECT * FROM Incident WHERE REFERENCE_NO=?";
 			PreparedStatement ps=c.prepareStatement(sql);
-			ps.setInt(1,userID);
+			ps.setLong(1,userID);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{

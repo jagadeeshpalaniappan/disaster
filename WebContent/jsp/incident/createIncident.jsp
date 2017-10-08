@@ -3,8 +3,8 @@
 
 			<a href='#' onclick="getAllModules();"> &lt Back</a> <br />
 			<br />
-
-			<div class="col-md-8 col-md-offset-2 panel panel-default">
+			<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
 				<div class="panel-heading">Report a Incident :</div>
 				<div class="panel-body">
 
@@ -68,16 +68,16 @@
 							<select class="form-control" name="incidentType" id="incidentType" required>
 								<option value="" disabled selected>Select the Incident type</option>
 							    <option value="101">Tank/Channal Breach</option>
-							    <option value="51">Water Lodgging</option>
-							    <option value="52">water Inundation</option>
-							    <option value="53">Loss of life</option>
-							    <option value="54">Hut damage</option>
-							    <option value="55">Wall Collapse</option>
-							    <option value="56">cattle death</option>
-							    <option value="57">Fallen trees</option>
-							    <option value="58">Lamp post fallen</option>
-							    <option value="59">Electric line cut</option>
-							    <option value="60">Fire accident</option>
+							    <option value="102">Water Lodgging</option>
+							    <option value="103">water Inundation</option>
+							    <option value="104">Loss of life</option>
+							    <option value="105">Hut damage</option>
+							    <option value="106">Wall Collapse</option>
+							    <option value="107">cattle death</option>
+							    <option value="108">Fallen trees</option>
+							    <option value="109">Lamp post fallen</option>
+							    <option value="110">Electric line cut</option>
+							    <option value="111">Fire accident</option>
 						     </select>
 							</div>
 						</div>
@@ -106,7 +106,7 @@
 						</div>
 					</form>
 
-
+					</div> 
 				</div>
 			</div>
 	</div>

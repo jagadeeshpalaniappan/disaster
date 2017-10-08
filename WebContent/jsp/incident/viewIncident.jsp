@@ -6,12 +6,11 @@
 	<a href='#' onclick="getViewIncidentPage();"> &lt Back</a> <br />
 	<br />
 	<a href='#' onclick="getAllModules();"> &lt Home</a> <br />
-
+	<div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
-		<div class="panel-heading">Incident details</div>
-		<div class="panel-body">
-		<c:if test="${status.statusCode == '*'}">
-
+	<div class="panel-heading">Incident details</div>
+	<div class="panel-body">
+	<c:if test="${status.statusCode == '*'}">
 			<table class="table table-striped">
 				<tr>
 					<th>Name:</th>
@@ -31,16 +30,22 @@
 				</tr>
 				<tr>
 					<th>Message Notification:</th>
-					<td><c:out value="${incident.msgStatus}" /></td>
+					<td>
+					<c:if test="${incident.msgStatus == true }" >
+					<img alt="sent" src="./images/tick.png" height="30px" width="30px" >
+					</c:if>
+					<c:if test="${incident.msgStatus == false }">
+					<img alt="sent" src="./images/wrong.png" height="30px" width="30px">
+					</c:if>
+					</td>
 				</tr>
 				<tr>
 					<th>Action:</th>
 					<td><c:out value="${incident.action}" /></td>
 				</tr>
 			</table>
-		</div>
-	</div>
-	</c:if>
+			</c:if>
+		
 	<c:if test="${status.statusCode =='Problem'}">
 			<div class="alert alert-warning"
 				style="text-align: center;">
@@ -63,5 +68,8 @@
 				Try again</a> 
 			</div>
 	</c:if>
+	</div>
+	</div>
+	</div>
 	
 </div>
